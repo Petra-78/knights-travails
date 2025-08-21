@@ -72,18 +72,6 @@ Your move took 5 steps. Here is your path:
 
 - Currently designed for a standard **8×8 board**, but can be adapted for larger boards by changing the visited array size and boundary checks.
 
-# returns 'words'
-
-foobar.pluralize('word')
-
-# returns 'geese'
-
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-
-foobar.singularize('phenomena')
-
 ## Acknowledgements
 
 - Inspired by [The Odin Project](https://www.theodinproject.com/) curriculum and challenges.
