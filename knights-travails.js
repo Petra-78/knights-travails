@@ -19,36 +19,52 @@ function getPossibleMoves([i, j]) {
       possibleMoves.push([ix, jy]);
     }
   }
-  console.log(`the possible moves are: ${possibleMoves}`);
   return possibleMoves;
 }
 
-getPossibleMoves([3, 3]);
-
-function knightMoves([i, j]) {
-  debugger;
-  let q = [[i, j]];
+function knightMoves([i, j], [end, target]) {
+  //   debugger;
+  let q = [{ coordinate: [i, j], parent: null }];
   let shortestPath = [];
   let visited = Array.from({ length: 8 }, () => Array(8).fill(false));
-  console.log(visited);
 
   while (q.length > 0) {
     let current = q.shift();
-    let ci = current[0];
-    let cj = current[1];
+    let ci = current.coordinate[0];
+    let cj = current.coordinate[1];
 
     if (visited[ci][cj] !== true) {
-      const moves = getPossibleMoves(current);
+      const moves = getPossibleMoves(current.coordinate);
       for (let [x, y] of moves) {
-        if (!visited[x][y]) {
-          q.push([x, y]);
+        if (x === end && y === target) {
+          let element = { coordinate: [x, y], parent: current };
+          shortestPath.push(element.coordinate);
+          while (element.parent !== null) {
+            element = {
+              coordinate: current.coordinate,
+              parent: current.parent,
+            };
+            shortestPath.push(element.coordinate);
+            current = current.parent;
+          }
+          printSteps(shortestPath);
+          return shortestPath;
+        }
+        if (visited[x][y] !== true) {
+          q.push({ coordinate: [x, y], parent: current });
         }
       }
       visited[ci][cj] = true;
     }
-
-    console.log(`queue is : ${q}`);
   }
 }
 
-knightMoves([0, 0]);
+function printSteps(steps) {
+  //   debugger;
+  console.log(`Your move took ${steps.length - 1} steps. Here is your path: `);
+  for (let i = steps.length - 1; i >= 0; i--) {
+    console.log(steps[i]);
+  }
+}
+
+knightMoves([0, 7], [1, 1]);
