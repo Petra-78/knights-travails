@@ -10,7 +10,6 @@ let directions = [
 ];
 
 function getPossibleMoves([i, j]) {
-  //   debugger;
   let possibleMoves = [];
   for ([x, y] of directions) {
     let ix = i + x;
@@ -23,7 +22,6 @@ function getPossibleMoves([i, j]) {
 }
 
 function knightMoves([i, j], [end, target]) {
-  //   debugger;
   let q = [{ coordinate: [i, j], parent: null }];
   let shortestPath = [];
   let visited = Array.from({ length: 8 }, () => Array(8).fill(false));
@@ -40,10 +38,7 @@ function knightMoves([i, j], [end, target]) {
           let element = { coordinate: [x, y], parent: current };
           shortestPath.push(element.coordinate);
           while (element.parent !== null) {
-            element = {
-              coordinate: current.coordinate,
-              parent: current.parent,
-            };
+            element = element.parent;
             shortestPath.push(element.coordinate);
             current = current.parent;
           }
